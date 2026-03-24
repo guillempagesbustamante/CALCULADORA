@@ -1,5 +1,5 @@
 from PySide6 import QtWidgets, QtCore
-
+from Event import Event
 from ui_calculadora import Ui_Calculadora as form_class
 
 
@@ -8,13 +8,16 @@ class Pantalla(QtWidgets.QMainWindow, form_class):
     Clase básica que carga la interfaz generada por QtDesigner.
     Utiliza herencia múltiple para extender QMainWindow [7], [8].
     """
-    # Definición de señales para el Presenter [14], [15]
-    # TODO: El estudiante debe definir btnresta, btnmulti y btndivi
-    btnsuma = QtCore.Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+
+        # Definición de señales para el Presenter [14], [15]
+        self.btnsuma = Event()
+        self.btnresta = Event()
+        self.btnmult = Event()
+        self.btndiv = Event()
 
     def entrada(self):
         """Retorna los valores de los QLineEdit convertidos a float [15, 16]."""
@@ -31,18 +34,33 @@ class Pantalla(QtWidgets.QMainWindow, form_class):
 
     def opera(self):
         """Identifica el botón y emite la señal correspondiente."""
+        if not self.verifica():
+            return
         boton = self.sender()
         if boton.text() == '+':
             self.btnsuma.emit()
-        # TODO: Implementar lógica para '-', '*' y '/'
+        if boton.text() == '-':
+            self.btnresta.emit()
+        if boton.text() == '*':
+            self.btnmult.emit()
+        if boton.text() == '/':
+            self.btndiv.emit()
+
+    def verifica(self):
+        """Verifica que los campos de entrada no estén vacíos."""
+        if not self.entrada1.text() or not self.entrada2.text():
+            self.mensaje('Error', 'Ambos campos de entrada deben ser llenados.')
+            return False
+        if not self.entrada1.text().isnumeric() or not self.entrada2.text().isnumeric():
+            self.mensaje('Error', 'Ambos campos de entrada deben ser numéricos.')
+            return False
+        return True
 
 
 if __name__ == "__main__":
     import sys
-    from ..feature_presenter.Presenter import Presenter
+    from presenter import Presenter
     from Calculadora import Calculadora
-
-    from PySide6 import QtWidgets
 
     app = QtWidgets.QApplication(sys.argv)
     # 1. Instanciar los componentes [25]

@@ -127,6 +127,10 @@ class Ui_Calculadora(object):
 
         self.retranslateUi(Calculadora)
         self.btsuma.clicked.connect(Calculadora.opera)
+        self.btmulti.clicked.connect(Calculadora.opera)
+        self.btresta.clicked.connect(Calculadora.opera)
+        self.btdivi.clicked.connect(Calculadora.opera)
+        self.btsalida.clicked.connect(Calculadora.close)
 
         QMetaObject.connectSlotsByName(Calculadora)
     # setupUi

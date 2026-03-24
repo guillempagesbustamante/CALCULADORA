@@ -314,8 +314,73 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btmulti</sender>
+   <signal>clicked()</signal>
+   <receiver>Calculadora</receiver>
+   <slot>opera()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>340</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>356</x>
+     <y>47</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btresta</sender>
+   <signal>clicked()</signal>
+   <receiver>Calculadora</receiver>
+   <slot>opera()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>293</x>
+     <y>104</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>333</x>
+     <y>16</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btdivi</sender>
+   <signal>clicked()</signal>
+   <receiver>Calculadora</receiver>
+   <slot>opera()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>359</x>
+     <y>116</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>323</x>
+     <y>43</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btsalida</sender>
+   <signal>clicked()</signal>
+   <receiver>Calculadora</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>262</x>
+     <y>141</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>264</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>opera()</slot>
+  <slot>verifica()</slot>
  </slots>
 </ui>
