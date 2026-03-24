@@ -11,6 +11,9 @@ class TkView:
 
         # Eventos: patrón Observer
         self.btnsuma = Event()
+        self.btnresta = Event()
+        self.btndiv = Event()
+        self.btnmult = Event()
         # TODO: Añadir eventos para resta, multiplicación y división
 
         self.setup_ui()
@@ -22,7 +25,10 @@ class TkView:
         self.entrada1 = tk.Entry(self.ventana)
         # .pack apila una cosa sobre la otra
         self.entrada1.pack()
-
+        tk.Label(self.ventana, text="Número 2:").pack()
+        self.entrada2 = tk.Entry(self.ventana)
+        # .pack apila una cosa sobre la otra
+        self.entrada2.pack()
         self.lbl_resultado = tk.Label(self.ventana, text="0.000")
         self.lbl_resultado.pack()
 
@@ -30,6 +36,15 @@ class TkView:
         # lambda: funciones anónimas
         self.btn_suma = tk.Button(self.ventana, text="+", command=lambda: self.opera('+'))
         self.btn_suma.pack()
+
+        self.btn_resta = tk.Button(self.ventana, text="-", command=lambda: self.opera('-'))
+        self.btn_resta.pack()
+
+        self.btn_divi= tk.Button(self.ventana, text="/", command=lambda: self.opera('/'))
+        self.btn_divi.pack()
+
+        self.btn_mult= tk.Button(self.ventana, text="*", command=lambda: self.opera('*'))
+        self.btn_mult.pack()
 
         self.btn_salir = tk.Button(self.ventana, text="Salir", command=self.ventana.quit, bg="red", fg="white")
         self.btn_salir.pack()
@@ -49,22 +64,26 @@ class TkView:
         tk.messagebox.showerror(prompt, txt)
 
     def opera(self, op):
-        """
+        if not self.verifica():
+            return
 
-        Parameters
-        ----------
-        op: str
-            Operación a realizar: '+', '-', '*', '/'
-
-        """
-        # TODO: completar
-        pass
-
+        if op == '+':
+            self.btnsuma.emit()
+        elif op == '-':
+            self.btnresta.emit()
+        elif op == '*':
+            self.btnmult.emit()
+        elif op == '/':
+            self.btndiv.emit()
 
     def verifica(self):
-        """Verifica que los campos de entrada de Tkinter sean válidos."""
-        # TODO: completar
-        pass
+        try:
+            float(self.entrada1.get())
+            float(self.entrada2.get())
+            return True
+        except ValueError:
+            self.mensaje("Error", "Debes introducir números válidos")
+            return False
 
 if __name__ == "__main__":
     from presenter import Presenter
